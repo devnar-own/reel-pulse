@@ -18,24 +18,6 @@ GROQ_MODEL = "llama-3.3-70b-versatile"
 
 APIFY_TOKEN = st.secrets["APIFY_TOKEN"]
 GROQ_KEY = st.secrets["GROQ_KEY"]
-APP_PASSWORD = st.secrets["APP_PASSWORD"]
-
-
-# ---------- auth gate ----------
-if "authed" not in st.session_state:
-    st.session_state.authed = False
-
-if not st.session_state.authed:
-    st.title("🥧 Reel Pulse")
-    st.caption("Paste an Instagram reel, get an AI topic breakdown of every comment.")
-    pw = st.text_input("Password", type="password")
-    if st.button("Enter") or pw:
-        if pw == APP_PASSWORD:
-            st.session_state.authed = True
-            st.rerun()
-        elif pw:
-            st.error("Wrong password")
-    st.stop()
 
 
 # ---------- helpers ----------
