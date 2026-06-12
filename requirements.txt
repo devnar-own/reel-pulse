@@ -1,5 +1,5 @@
 streamlit
-apify-client
+apify-client==2.5.0
 requests
 matplotlib
 numpy

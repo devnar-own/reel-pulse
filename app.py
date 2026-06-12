@@ -74,6 +74,9 @@ def scrape_comments(url: str):
     client = ApifyClient(APIFY_TOKEN)
     run = client.actor("apify/instagram-comment-scraper").call(
         run_input={"directUrls": [url], "resultsLimit": MAX_COMMENTS})
+    if not run or run.get("status") != "SUCCEEDED":
+        status = run.get("status") if run else "no run returned"
+        raise RuntimeError(f"Apify scrape did not succeed (status: {status})")
     rows = []
     for item in client.dataset(run["defaultDatasetId"]).iterate_items():
         text = (item.get("text") or "").strip()
